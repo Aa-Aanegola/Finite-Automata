@@ -91,7 +91,6 @@ def convertToRegex(DFA, path):
             if state not in DFA['start_states'] and state not in DFA['final_states']:
                 rip_state = state
                 break
-    
         for state1 in DFA['states']:
             for state2 in DFA['states']:
                 if state1 in DFA['final_states']:
@@ -126,7 +125,7 @@ def convertToRegex(DFA, path):
                         R += "+"+R4 
                 else:
                     R = R4 
-                if R and R != "$":
+                if R and R != "$" and len(R) > 1 and R[-1] != ")":
                     R = "("+R+")"
                 
                 added = False    
