@@ -8,14 +8,19 @@ def readDFA(path):
     return DFA
 
 def optimize(DFA, path):
-    for state in DFA['states']:
-        reachable = False
+    reachable = []
+    stack = []
+    reachable.append(DFA['start_states'][0])
+    stack.append(DFA['start_states'][0])
+    while stack:
+        cur = stack.pop()
         for trans in DFA['transition_function']:
-            if trans[2] == state:
-                reachable = True
-        if reachable == False:
+            if trans[0] == cur and trans[2] not in reachable:
+                reachable.append(trans[2])
+                stack.append(trans[2])
+    for state in DFA['states']:
+        if state not in reachable:
             DFA['states'].remove(state)
-        
     
     optDFA = {}
     
