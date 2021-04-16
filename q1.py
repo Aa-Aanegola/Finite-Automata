@@ -1,6 +1,12 @@
-from defs import *
 import sys
 import json
+
+ALLOWED = "0123456789qwertyuiopasdfghjklzxcvbnm*.+()$"
+OPS = "*.+()"
+PRIORITY = {'*' : 2, '.' : 1, '+' : 0}
+INVALID_REGEX = -1
+VALID_REGEX = 0
+
 
 class State:
     id = 0
@@ -149,7 +155,9 @@ def addConcat(regex):
             newRegex += '.'
         elif regex[i] == ')' and regex[i+1] == '(':
             newRegex += '.'
-        elif regex[i] == "*" and regex[i+1] not in '(+*':
+        elif regex[i] == ")" and regex[i+1] not in OPS:
+            newRegex += '.'
+        elif regex[i] == "*" and regex[i+1] not in '+*)':
             newRegex += '.'
     newRegex += regex[-1]
     newRegex += ')'
@@ -199,6 +207,7 @@ def main():
     postfix = []
     res = parseRegEx(regEx, postfix)
 
+    
     if res == INVALID_REGEX:
         print("Invalid regular expression, terminating.")
         exit()

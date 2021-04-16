@@ -125,7 +125,7 @@ def convertToRegex(DFA, path):
                         R += "+"+R4 
                 else:
                     R = R4 
-                if R and R != "$" and len(R) > 1 and R[-1] != ")":
+                if R and R != "$" and len(R) > 1:
                     R = "("+R+")"
                 
                 added = False    

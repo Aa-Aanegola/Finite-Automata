@@ -62,7 +62,7 @@ def toDFA(NFA, path):
     DFA['final_states'] = []
     for state in NFA['final_states']:
         for stateSet in DFA['states']:
-            if state in stateSet:
+            if state in stateSet and stateSet not in DFA['final_states']:
                 DFA['final_states'].append(stateSet)
     
     f = open(path, "w+")
